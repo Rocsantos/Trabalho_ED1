@@ -33,7 +33,7 @@ int main()
     }
     else if (eposfixa == -1)
     {
-        puts("Erro em alocação");
+        puts("erro em alocacao");
     }
     else
     {
@@ -112,37 +112,28 @@ int posfixafuncao(char *f)
     for(int i = 0; i < strlen(f); i++)
     {
         char c = f[i], op, t;
-        printf("%s\n", posfixa);
         if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
         {
-            posfixa[j] = c; 
+            posfixa[j] = c;
             j++;
         }
         else
         {
             if(c == '(')
-            {
                 if(!empilha(c))
-                {
                     return -1;
-                }
-            }
             else
             {
                 if(c == ')')
                 {
                     if(!desempilha(&op))
-                    {
                         return 0;
-                    }
                     while(op != '(')
                     {
                         posfixa[j] = op;
                         j++;
                         if(!desempilha(&op))
-                        {
                             return 0;
-                        }
                     }
                 }
                 else
@@ -151,13 +142,9 @@ int posfixafuncao(char *f)
                     if(prioridade(c) > prioridade(t))
                     {
                         if(!empilha(t))
-                        {
                             return -1;
-                        }
                         if(!empilha(c))
-                        {
                             return -1;
-                        }
                     }
                     else
                     {
@@ -168,13 +155,9 @@ int posfixafuncao(char *f)
                             desempilha(&t);
                         }
                         if(!empilha(t))
-                        {
                             return -1;
-                        }
                         if(!empilha(c))
-                        {
                             return -1;
-                        }
                     }
                 }
             }
@@ -182,7 +165,13 @@ int posfixafuncao(char *f)
     }
     while(pilha != NULL)
     {
-        desempilha(&posfixa[j]);
+        if(posfixa[j] != '(')
+            desempilha(&posfixa[j]);
+        else
+        {
+            char dunny;
+            desempilha(&dunny);
+        }
         j++;
     }
     return 1;
